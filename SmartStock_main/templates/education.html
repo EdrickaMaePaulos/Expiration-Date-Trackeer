@@ -1,0 +1,251 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="inside-rectangle-4">
+    <div class="educational-container">
+        <!-- Existing Date Labels Section -->
+        <div class="education-container-1">
+            <div class="word-title">
+                <h1 id="title-1" onclick="showDescription('desc-1', 'title-1')">Expires on</h1>
+                <h1 id="title-2" onclick="showDescription('desc-2', 'title-2')">Best before</h1>
+                <h1 id="title-3" onclick="showDescription('desc-3', 'title-3')">Use by</h1>
+                <h1 id="title-4" onclick="showDescription('desc-4', 'title-4')">Sell by</h1>
+            </div>
+            <div class="divider-2"></div>
+            <div class="description-container">
+                <div class="descriptions" id="desc-1"><strong>Description: </strong>The final date by which the product should be used.<br>
+                    <strong>Recommendation: </strong>Food should not be consumed after this date.</div>
+                <div class="descriptions" id="desc-2"><strong>Description: </strong>Indicates when the product will be at its peak quality.<br>
+                    <strong>Recommendation: </strong>Food is typically safe to consume after this date but may lose flavor, texture, or nutritional value.</div>
+                <div class="descriptions" id="desc-3"><strong>Description: </strong>Indicates the last date recommended for safe consumption of the product.<br>
+                    <strong>Recommendation: </strong>Food should not be consumed after this date, even if it looks and smells fine.</div>
+                <div class="descriptions" id="desc-4"><strong>Description: </strong>Tells retailers how long to display products for inventory management.<br>
+                    <strong>Recommendation: </strong>Products are usually good for consumption for some time after this date.</div>
+            </div>
+        </div>
+
+        <!-- Food Storage Tips Section -->
+        <div class="education-container-2">
+            <div class="section-header">
+                <h2>Proper Food Storage Tips</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3>Refrigerator (35°F-40°F)</h3>
+                    <p>Keep refrigerator at or below 40°F (4°C). Store raw meat, poultry and seafood on the bottom shelf to prevent dripping onto other foods.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Freezer (0°F or below)</h3>
+                    <p>Keep freezer at 0°F (-18°C) or below. Use freezer-safe containers or heavy-duty freezer bags and label with contents and date.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Pantry (50°F-70°F)</h3>
+                    <p>Store in a cool, dry place away from direct sunlight. Keep foods in airtight containers to prevent moisture and pest issues.</p>
+                </div>
+            </div>
+
+            <h3 class="food-specific-text">Food-Specific Storage Tips</h3>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="storage-tip">
+                        <h1>Apples</h1>
+                        <p>Refrigerate, away from ethylene-sensitive produce</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div class="storage-tip">
+                        <h1>Tomatoes</h1>
+                        <p>Room temperature, away from direct sunlight</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div class="storage-tip">
+                        <h1>Bread</h1>
+                        <p>Cool, dry place in airtight container or freeze for longevity</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div class="storage-tip">
+                        <h1>Leafy Greens</h1>
+                        <p>Refrigerate in loose plastic bag with paper towel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Assessment Guide -->
+        <div class="education-container-3">
+            <div class="section-header">
+                <h2>Visual Assessment Guide: Is It Still Good?</h2>
+            </div>
+            <p class="visual-text">Many foods are safe to eat even after their date labels have passed. Use these sensory indicators to determine if food is still good:</p>
+
+            <div class="assessment-grid">
+                <div class="assessment-card">
+                    <h3>Dairy Products</h3>
+                    <p><strong>Safe:</strong> Mild smell, normal color, no unusual texture</p>
+                    <p><strong>Spoiled:</strong> Sour smell, discoloration, lumpy texture, mold</p>
+                </div>
+                <div class="assessment-card">
+                    <h3>Fruits & Vegetables</h3>
+                    <p><strong>Safe:</strong> Minor blemishes, slight softening</p>
+                    <p><strong>Spoiled:</strong> Mold, sliminess, foul odor, severe discoloration</p>
+                </div>
+                <div class="assessment-card">
+                    <h3>Meat & Poultry</h3>
+                    <p><strong>Safe:</strong> Normal color, no strong odor</p>
+                    <p><strong>Spoiled:</strong> Slimy texture, foul smell, gray/green discoloration</p>
+                </div>
+                <div class="assessment-card">
+                    <h3>Canned Goods</h3>
+                    <p><strong>Safe:</strong> Intact can, normal appearance upon opening</p>
+                    <p><strong>Spoiled:</strong> Bulging cans, rust, spurting liquid when opened, mold</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Food Waste Impact -->
+        <div class="education-container-4">
+            <div class="section-header">
+                <h2>The Impact of Food Waste</h2>
+            </div>
+            <div class="impact-stats">
+                <div class="stat-card">
+                    <div class="number">⅓</div>
+                    <p>Of all food produced globally is wasted</p>
+                </div>
+                <div class="stat-card">
+                    <div class="number">$1,500</div>
+                    <p>Average annual cost of food waste per household</p>
+                </div>
+                <div class="stat-card">
+                    <div class="number">8%</div>
+                    <p>Of global greenhouse gas emissions come from food waste</p>
+                </div>
+                <div class="stat-card">
+                    <div class="number">25%</div>
+                    <p>Of global freshwater used in agriculture is for food that's wasted</p>
+                </div>
+            </div>
+
+            <p class="stat-text">By tracking and properly managing your food expiration dates, you can significantly reduce your environmental footprint and save money.</p>
+        </div>
+
+        <!-- Preservation Techniques -->
+        <div class="education-container-5">
+            <div class="section-header">
+                <h2>Food Preservation Techniques</h2>
+            </div>
+            <div class="preservation-techniques">
+                <div class="technique-card">
+                    <h3>Freezing</h3>
+                    <p>Almost any food can be frozen to extend shelf life. Proper wrapping prevents freezer burn. Label with date and contents.</p>
+                    <p><strong>Best for:</strong> Meat, bread, berries, prepared meals</p>
+                </div>
+                <div class="technique-card">
+                    <h3>Pickling</h3>
+                    <p>Preserves food in an acidic solution (vinegar) or brine to prevent bacterial growth.</p>
+                    <p><strong>Best for:</strong> Cucumbers, carrots, onions, peppers</p>
+                </div>
+                <div class="technique-card">
+                    <h3>Dehydrating</h3>
+                    <p>Removes moisture to prevent bacterial growth. Can be done with a dehydrator, oven, or sun-drying.</p>
+                    <p><strong>Best for:</strong> Fruits, herbs, vegetables, meat jerky</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SDG Cards (Existing) -->
+        <div class="education-container-6">
+            <div class="sdg-card" data-sdg="2">
+                <div class="card-content">
+                    <div class="card-face card-front">SDG #2</div>
+                    <div class="card-face card-back">Zero Hunger: Reducing food waste helps ensure more equitable food distribution and addresses global hunger issues.</div>
+                </div>
+            </div>
+            <div class="sdg-card" data-sdg="3">
+                <div class="card-content">
+                    <div class="card-face card-front">SDG #3</div>
+                    <div class="card-face card-back">Good Health and Well-being: Proper food storage and understanding expiration dates contributes to food safety and health.</div>
+                </div>
+            </div>
+            <div class="sdg-card" data-sdg="12">
+                <div class="card-content">
+                    <div class="card-face card-front">SDG #12</div>
+                    <div class="card-face card-back">Responsible Consumption and Production: Tracking expiration dates promotes responsible consumption and reduces waste.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Food Recovery Hierarchy -->
+        <div class="education-container-7">
+            <div class="section-header">
+                <h2>Food Recovery Hierarchy</h2>
+            </div>
+            <p class="hierarchy-text">The EPA's Food Recovery Hierarchy prioritizes actions to prevent and divert food waste:</p>
+
+            <div style="max-width: 600px; margin: 20px auto; background-color: #f9f9f9; border-radius: 8px; padding: 20px;">
+                <div style="background-color: #e6f7e6; padding: 15px; border-radius: 6px; margin-bottom: 10px; color: #9B7D90">
+                    <strong>1. Source Reduction:</strong> Reduce the volume of surplus food generated
+                </div>
+                <div style="background-color: #ebf5f8; padding: 15px; border-radius: 6px; margin-bottom: 10px; color: #9B7D90">
+                    <strong>2. Feed Hungry People:</strong> Donate extra food to food banks, soup kitchens, and shelters
+                </div>
+                <div style="background-color: #f0f3e6; padding: 15px; border-radius: 6px; margin-bottom: 10px; color: #9B7D90">
+                    <strong>3. Feed Animals:</strong> Divert food scraps to animal feed
+                </div>
+                <div style="background-color: #f4f1e3; padding: 15px; border-radius: 6px; margin-bottom: 10px; color: #9B7D90">
+                    <strong>4. Industrial Uses:</strong> Provide waste oils for rendering and fuel conversion
+                </div>
+                <div style="background-color: #f9e9e3; padding: 15px; border-radius: 6px; margin-bottom: 10px; color: #9B7D90">
+                    <strong>5. Composting:</strong> Create nutrient-rich soil amendment
+                </div>
+                <div style="background-color: #f9e3e3; padding: 15px; border-radius: 6px; color: #9B7D90">
+                    <strong>6. Landfill/Incineration:</strong> Last resort disposal
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Show first description by default
+    document.addEventListener('DOMContentLoaded', function() {
+        showDescription('desc-1', 'title-1');
+    });
+
+    function showDescription(descId, titleId) {
+        document.querySelectorAll('.descriptions')
+                .forEach(d => d.classList.remove('active'));
+
+        document.querySelectorAll('.word-title h1')
+                .forEach(t => t.classList.remove('active'));
+
+        const clickedTitle = document.getElementById(titleId);
+        if (clickedTitle) clickedTitle.classList.add('active');
+
+        const desc = document.getElementById(descId);
+        if (desc) desc.classList.add('active');
+    }
+
+    document.querySelectorAll('.sdg-card').forEach(card => {
+        card.addEventListener('click', () => {
+            card.querySelector('.card-content').style.transform =
+                card.querySelector('.card-content').style.transform === 'rotateY(180deg)'
+                    ? 'rotateY(0deg)'
+                    : 'rotateY(180deg)';
+        });
+    });
+
+    // Just placeholders for the interactive elements
+    document.querySelectorAll('.tool-button').forEach(button => {
+        button.addEventListener('click', function() {
+            alert('This interactive tool would be implemented in the full version.');
+        });
+    });
+</script>
+
+<form action="/education" method="POST">
+
+</form>
+{% endblock %}

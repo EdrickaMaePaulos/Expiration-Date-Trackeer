@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.gradient-background-4 {
+    position: absolute;
+    background: linear-gradient(to bottom, #9B7D90, #3E6895);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.smartstock-logo-4 {
+    object-fit: contain;
+    width: 5%;
+    height: 8%;
+    margin-top: 1%;
+    margin-left: 2.5%;
+}
+
+.horizontal-line-1 {
+    width: 8%;
+    height: 1px;
+    background-color: #E6DEE3;
+    margin: 20px 0;
+    margin-left: 1%;
+}
+
+.nav-icon {
+    color: lightgray;
+    margin-left: 4%;
+    font-size: 2rem;
+    margin-bottom: 1%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-icon:hover {
+    color: white;
+}
+
+.logout-icon {
+    position: absolute;
+    color: white;
+    margin-left: 4%;
+    font-size: 2rem;
+    bottom: 2%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-icon:hover {
+    color: white;
+    font-size: 2.5rem;
+}
+
+.nav-icon.active {
+    color: white;
+    font-size: 2rem;
+}
+
+.curve-rectangle {
+    position: absolute;
+    background: white;
+    top: 0;
+    right: 0;
+    width: 90%;
+    height: 100vh;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    width: 96%;
+    height: 6%;
+    margin-top: 1%;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header-profile {
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    width: 20%;
+    align-items: center;
+    margin-left: 0.5%;
+}
+
+.user-icon {
+    font-size: 1.5rem;
+}
+
+.hello-username {
+    font-size: 1rem;
+    font-family: "Istok Web", sans-serif;
+}
+
+.header-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 2%;
+    width: 20%;
+    align-items: center;
+    margin-right: 0.5%;
+}
+
+.as-of {
+    font-size: 10px;
+    font-family: "Istok Web", sans-serif;
+}
+
+.date {
+    font-size: 17px;
+    font-family: "Istok Web", sans-serif;
+    font-weight: bold;
+}
+
+.inside-rectangle {
+    background-color: #E6DEE3;
+    width: 96%;
+    max-height: 88%;
+    margin-left: 2%;
+    border: 1px solid black;
+    border-radius: 25px;
+}
+
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    width: 96%;
+    height: 92%;
+    margin: 2%;
+    gap: 20px;
+}
+
+.behavior-container,
+.appearance-containter {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+}
+
+.behavior-container p,
+.appearance-containter p {
+    font-family: "Istok Web", sans-serif;
+    font-size: 1rem;
+    margin: 0 0 0 1%;
+}
+
+.behavior-content,
+.appearance-content {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background: white;
+}

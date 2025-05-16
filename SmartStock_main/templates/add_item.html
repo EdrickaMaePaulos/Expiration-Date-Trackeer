@@ -1,0 +1,589 @@
+<!-- Keep the top structure as is -->
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="add-new-container-1">
+    <div class="add-title-2">
+        <a href="/">
+            <button class="back-left">‹</button>
+        </a>
+        <h1>Add New Item</h1>
+    </div>
+
+    <form action="/addItem" method="post" enctype="multipart/form-data">
+        <!-- Barcode Capture Section -->
+        <div class="bar-scan-container">
+            <div class="barScan">
+                <label class="scan-barcode-text">Scan Barcode</label>
+                <video class="scanner-container" id="scanner" autoplay muted playsinline></video>
+                <canvas id="snapshot-canvas" style="display:none;"></canvas>
+                <div id="scanner-feedback-guide" style="margin-top: 10px; font-size: 14px; color: #555;">
+                    Scanner ready. Hold barcode steady in center.
+                </div>
+
+                <p class="scanned-barcode-text"><strong>Scanned Barcode:</strong>
+                    <span id="barcode-result">None</span></p>
+                <div class="scanner-buttons">
+                    <button type="button" class="buttonOpen" id="start-scanner">Open Camera</button>
+                    <button type="button" class="buttonClose" id="stop-scanner">Close Camera</button>
+                    <button type="button" class="captureButton" id="capture-barcode">Capture Barcode</button>
+                </div>
+
+
+            </div>
+
+            <!-- Manual Input and Upload -->
+            <div class="barcode-options">
+                <div class="barcode-alternatives-1">
+                    <div>
+                        <label for="manual-barcode" class="enter-manually-text">Or Enter Barcode Manually</label>
+                    </div>
+                    <div class="barcode-option-1">
+                        <input type="text" class="manual-barcode" id="manual-barcode" name="manual-barcode" placeholder="Enter Barcode" />
+                        <button type="button" id="search-manual-btn" class="manual-enter-1"><span>Enter</span></button>
+                    </div>
+                </div>
+
+                <div class="barcode-alternatives-2">
+                    <div>
+                        <label for="barcode-upload" class="enter-manually-text">Or Upload Barcode File</label>
+                    </div>
+                    <div class="barcode-option-1">
+                        <input type="file" class="file-barcode" id="barcode-upload" name="barcode-upload" accept=".txt,.jpg,.png" />
+                        <button type="button" id="process-file-btn" class="manual-enter-2"><span>Enter</span></button>
+                    </div>
+                </div>
+
+                <!-- Moved upload preview container here, inside barScan div -->
+                <div id="upload-preview-container" class="upload-preview-container">
+                    <img id="upload-preview" class="upload-preview"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item Details -->
+        <h1 class="item-details-text">Item Details</h1>
+        <div class="big-container">
+            <div class="small-container-1">
+                <div class="mb-4">
+                    <label for="name" class="item-name-text">Item Name</label>
+                    <input type="text" class="item-name" id="name" name="name" required>
+                </div>
+                <div class="mb-4">
+                    <label for="storageID" class="form-label-3">Storage</label>
+                    <select class="form-control" id="storageID" name="storageID" required>
+                        <option value="">Select Storage</option>
+                        {% for storage in storages %}
+                            <option value="{{ storage.storageID }}">{{ storage.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="categoryID" class="form-label-3">Category</label>
+                    <select class="form-control" id="categoryID" name="categoryID" required>
+                        <option value="">Select Category</option>
+                        {% for category in categories %}
+                            <option value="{{ category.categoryID }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="small-container-2">
+                <div class="mb-4">
+                    <label for="manufactured_date" class="form-label-3">Manufactured Date</label>
+                    <input type="date" class="form-control" id="manufactured_date" name="manufactured_date">
+                </div>
+                <div class="mb-4">
+                    <label for="expiration_date" class="form-label-3">Expiration Date</label>
+                    <input type="date" class="form-control" id="expiration_date" name="expiration_date">
+                </div>
+            </div>
+        </div>
+        <div class="mb-4 notes-container">
+            <label for="notes" class="form-label-3">Notes</label>
+            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="add-button-2">ADD</button>
+    </form>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const videoElement = document.getElementById("scanner");
+    const barcodeResultElement = document.getElementById('barcode-result');
+    const manualBarcodeInput = document.getElementById('manual-barcode');
+    const barcodeUploadInput = document.getElementById('barcode-upload');
+    const scannerContainer = document.querySelector('.scanner-container');
+    const searchManualBtn = document.getElementById('search-manual-btn');
+    const processFileBtn = document.getElementById('process-file-btn');
+    const uploadPreview = document.getElementById('upload-preview');
+    const uploadPreviewContainer = document.getElementById('upload-preview-container');
+    const captureBtn = document.getElementById('capture-barcode'); // Using the existing capture barcode button
+    const snapshotCanvas = document.getElementById('snapshot-canvas'); // Using the existing snapshot canvas
+
+    let mediaStream = null;
+    let lastDetectedBarcode = null;
+    let lastDetectionTime = 0;
+    let scanning = false;
+    let uploadedImageDataUrl = null;
+
+    const startBtn = document.getElementById("start-scanner");
+    const stopBtn = document.getElementById("stop-scanner");
+
+    startBtn.addEventListener("click", startScanner);
+    stopBtn.addEventListener("click", stopScanner);
+    captureBtn.addEventListener("click", captureAndScanBarcode); // Add event listener for capture button
+
+    stopBtn.disabled = true;
+
+    searchManualBtn.addEventListener("click", function () {
+        const manualBarcode = manualBarcodeInput.value.trim();
+        if (manualBarcode) {
+            barcodeResultElement.textContent = manualBarcode;
+            fetchProductDetails(manualBarcode);
+        }
+    });
+
+    processFileBtn.addEventListener("click", function () {
+        if (uploadedImageDataUrl) {
+            processUploadedImage(uploadedImageDataUrl);
+        } else {
+            alert("Please upload an image first");
+        }
+    });
+
+    // New function to capture and scan a still image
+    function captureAndScanBarcode() {
+        if (!mediaStream) {
+            alert("Please start the scanner first.");
+            return;
+        }
+
+        // Set canvas dimensions to match video
+        const context = snapshotCanvas.getContext('2d');
+        snapshotCanvas.width = videoElement.videoWidth;
+        snapshotCanvas.height = videoElement.videoHeight;
+
+        // Draw the current video frame to the canvas
+        context.drawImage(videoElement, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
+
+        // Create an image data URL from the canvas
+        const imageDataURL = snapshotCanvas.toDataURL('image/png');
+
+        // Temporarily display the captured image
+        const capturePreview = document.createElement('div');
+        capturePreview.style.position = 'absolute';
+        capturePreview.style.top = '0';
+        capturePreview.style.left = '0';
+        capturePreview.style.width = '200%';
+        capturePreview.style.height = '200%';
+        capturePreview.style.backgroundColor = 'rgba(255,255,255,0.8)';
+        capturePreview.style.zIndex = '10';
+        capturePreview.style.display = 'flex';
+        capturePreview.style.justifyContent = 'center';
+        capturePreview.style.alignItems = 'center';
+
+        const previewImg = document.createElement('img');
+        previewImg.src = imageDataURL;
+        previewImg.style.maxWidth = '95%';
+        previewImg.style.maxHeight = '95%';
+        previewImg.style.border = '2px solid #333';
+
+        capturePreview.appendChild(previewImg);
+        scannerContainer.appendChild(capturePreview);
+
+        // Show processing message
+        const processingMsg = document.createElement('div');
+        processingMsg.textContent = 'Scanning captured image...';
+        processingMsg.style.position = 'absolute';
+        processingMsg.style.bottom = '10px';
+        processingMsg.style.left = '0';
+        processingMsg.style.width = '100%';
+        processingMsg.style.textAlign = 'center';
+        processingMsg.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        processingMsg.style.color = 'white';
+        processingMsg.style.padding = '5px 0';
+        capturePreview.appendChild(processingMsg);
+
+        // Use Quagga to scan the captured image
+        Quagga.decodeSingle({
+            src: imageDataURL,
+            numOfWorkers: 0,
+            inputStream: { size: 800 },
+            decoder: {
+                readers: [
+                    "ean_reader",
+                    "ean_8_reader",
+                    "upc_reader",
+                    "upc_e_reader",
+                    "code_128_reader",
+                    "code_39_reader",
+                    "code_93_reader",
+                    "i2of5_reader"
+                ]
+            },
+            locate: true,
+            locator: { patchSize: "medium", halfSample: true }
+        }, function (result) {
+            // Remove the preview after 1.5 seconds
+            setTimeout(() => {
+                capturePreview.remove();
+            }, 1500);
+
+            if (result && result.codeResult) {
+                const code = result.codeResult.code;
+                barcodeResultElement.textContent = code;
+
+                // Update processing message
+                processingMsg.textContent = `Barcode found: ${code}`;
+                processingMsg.style.backgroundColor = 'rgba(0,128,0,0.7)';
+
+                // Fetch product details
+                fetchProductDetails(code);
+            } else {
+                barcodeResultElement.textContent = "No barcode detected";
+
+                // Update processing message
+                processingMsg.textContent = 'No barcode detected in capture';
+                processingMsg.style.backgroundColor = 'rgba(255,0,0,0.7)';
+
+                // Show alert
+                setTimeout(() => {
+                    alert("No barcode detected in the captured image. Please try again with better lighting or positioning.");
+                }, 1000);
+            }
+        });
+    }
+
+    function startScanner() {
+        if (scanning) return;
+
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+
+        navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: 'environment',
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                advanced: [{ zoom: 2.0 }]
+            }
+        })
+        .then(function (stream) {
+            mediaStream = stream;
+            videoElement.srcObject = stream;
+            videoElement.style.filter = "contrast(1.4) brightness(1.1)";
+
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: videoElement,
+                    constraints: {
+                        width: 1280,
+                        height: 720,
+                        facingMode: "environment"
+                    },
+                    area: {
+                        top: "10%",
+                        right: "10%",
+                        left: "10%",
+                        bottom: "10%"
+                    }
+                },
+                locate: true,
+                locator: {
+                    patchSize: "medium",
+                    halfSample: true
+                },
+                numOfWorkers: 4,
+                frequency: 10,
+                decoder: {
+                    readers: [
+                        "ean_reader",
+                        "ean_8_reader",
+                        "upc_reader",
+                        "upc_e_reader",
+                        "code_128_reader",
+                        "code_39_reader",
+                        "code_93_reader",
+                        "i2of5_reader"
+                    ],
+                    multiple: false
+                },
+                debug: {
+                    drawBoundingBox: true,
+                    showFrequency: true,
+                    drawScanline: true,
+                    showPattern: true
+                }
+            }, function (err) {
+                if (err) {
+                    console.error("Quagga init error:", err);
+                    alert("Camera initialization error: " + err);
+                    stopScanner();
+                    return;
+                }
+                Quagga.start();
+                scanning = true;
+
+                const scanFeedback = document.createElement('div');
+                scanFeedback.id = 'scan-feedback';
+                scanFeedback.innerHTML = 'Scanning...';
+                scanFeedback.style.position = 'absolute';
+                scanFeedback.style.top = '10px';
+                scanFeedback.style.left = '10px';
+                scanFeedback.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                scanFeedback.style.color = 'white';
+                scanFeedback.style.padding = '5px 10px';
+                scanFeedback.style.borderRadius = '4px';
+                scannerContainer.style.position = 'relative';
+                scannerContainer.appendChild(scanFeedback);
+            });
+        })
+        .catch(function (err) {
+            console.error("Camera access error: ", err);
+            alert("Camera permission is required. Error: " + err.message);
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+        });
+    }
+
+    function stopScanner() {
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+
+        if (scanning) {
+            Quagga.stop();
+            scanning = false;
+        }
+
+        if (mediaStream) {
+            mediaStream.getTracks().forEach(track => track.stop());
+            videoElement.srcObject = null;
+            mediaStream = null;
+        }
+
+        const scanFeedback = document.getElementById('scan-feedback');
+        if (scanFeedback) {
+            scanFeedback.remove();
+        }
+        clearInterval(scanGuideInterval);
+    }
+
+    Quagga.onProcessed(function (result) {
+        const drawingCanvas = document.querySelector('canvas.drawingBuffer');
+        if (drawingCanvas && result) {
+            const ctx = drawingCanvas.getContext('2d');
+            ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+
+            if (result.boxes) {
+                result.boxes.filter(b => b !== result.box).forEach(box => {
+                    Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, ctx, { color: "yellow", lineWidth: 2 });
+                });
+            }
+            if (result.box) {
+                Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, ctx, { color: "green", lineWidth: 2 });
+            }
+
+            if (result.codeResult && result.codeResult.code) {
+                const scanFeedback = document.getElementById('scan-feedback');
+                scanFeedback.innerHTML = 'Detected: ' + result.codeResult.code + ' (Confidence: ' + Math.round(result.codeResult.confidence * 100) + '%)';
+                scanFeedback.style.backgroundColor = result.codeResult.confidence > 0.75 ? 'rgba(0,128,0,0.7)' : 'rgba(255,165,0,0.7)';
+            }
+        }
+    });
+
+    const feedbackGuide = document.getElementById('scanner-feedback-guide');
+
+    // Monitor scanning quality every second
+    let scanGuideInterval = setInterval(() => {
+        if (!mediaStream || !scanning) return;
+
+        const videoWidth = videoElement.videoWidth || 0;
+        const videoHeight = videoElement.videoHeight || 0;
+
+        // Simple condition checks
+        if (videoWidth < 300 || videoHeight < 200) {
+            feedbackGuide.textContent = "Camera too small or blurry — try getting closer.";
+            feedbackGuide.style.color = "orange";
+        } else if (videoElement.style.transform === "scaleX(-1)") {
+            feedbackGuide.textContent = "Camera is flipped — tap 'Flip Video' if needed.";
+            feedbackGuide.style.color = "gray";
+        } else if (!lastDetectedBarcode || Date.now() - lastDetectionTime > 3000) {
+            feedbackGuide.textContent = "No barcode detected — try centering, zooming, or adjusting light.";
+            feedbackGuide.style.color = "#555";
+        } else {
+            feedbackGuide.textContent = "Barcode detected successfully!";
+            feedbackGuide.style.color = "green";
+        }
+    }, 1000);
+
+    Quagga.onDetected(function (result) {
+        const barcode = result.codeResult.code;
+        const confidence = result.codeResult.confidence;
+        const now = new Date().getTime();
+
+        if (confidence > 0.8 &&
+            (barcode !== lastDetectedBarcode || (now - lastDetectionTime) > 2000)) {
+
+            lastDetectedBarcode = barcode;
+            lastDetectionTime = now;
+
+            barcodeResultElement.textContent = barcode;
+
+            const successOverlay = document.createElement('div');
+            successOverlay.style.position = 'absolute';
+            successOverlay.style.top = '0';
+            successOverlay.style.left = '0';
+            successOverlay.style.width = '100%';
+            successOverlay.style.height = '100%';
+            successOverlay.style.backgroundColor = 'rgba(0,255,0,0.3)';
+            successOverlay.style.zIndex = '10';
+            scannerContainer.appendChild(successOverlay);
+
+            setTimeout(() => {
+                successOverlay.remove();
+                fetchProductDetails(barcode);
+            }, 1000);
+        }
+    });
+
+    manualBarcodeInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            searchManualBtn.click();
+        }
+    });
+
+    barcodeUploadInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (!file) {
+            uploadPreviewContainer.style.display = 'none';
+            uploadedImageDataUrl = null;
+            return;
+        }
+
+        const reader = new FileReader();
+
+        if (file.type.startsWith('image/')) {
+            reader.onload = function (e) {
+                uploadedImageDataUrl = e.target.result;
+                uploadPreview.src = uploadedImageDataUrl;
+                uploadPreviewContainer.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else if (file.type === 'text/plain') {
+            reader.onload = function (e) {
+                const barcode = e.target.result.trim();
+                uploadPreviewContainer.style.display = 'block';
+                uploadPreview.style.display = 'none';
+
+                const textPreview = document.createElement('div');
+                textPreview.className = 'text-preview';
+                textPreview.innerText = `Text file content: ${barcode}`;
+                uploadPreviewContainer.appendChild(textPreview);
+
+                uploadedImageDataUrl = barcode;
+            };
+            reader.readAsText(file);
+        } else {
+            alert("Unsupported file type. Please upload a .txt or image file.");
+            barcodeUploadInput.value = '';
+            uploadPreviewContainer.style.display = 'none';
+        }
+    });
+
+    function processUploadedImage(dataUrl) {
+        if (typeof dataUrl === 'string' && !dataUrl.startsWith('data:image')) {
+            barcodeResultElement.textContent = dataUrl;
+            fetchProductDetails(dataUrl);
+            return;
+        }
+
+        Quagga.decodeSingle({
+            src: dataUrl,
+            numOfWorkers: 0,
+            inputStream: { size: 800 },
+            decoder: {
+                readers: ["ean_reader", "upc_reader", "upc_e_reader", "code_128_reader", "code_39_reader", "code_93_reader", "i2of5_reader"]
+            },
+            locate: true,
+            locator: { patchSize: "medium", halfSample: true }
+        }, function (result) {
+            if (result && result.codeResult) {
+                const barcode = result.codeResult.code;
+                barcodeResultElement.textContent = barcode;
+                fetchProductDetails(barcode);
+            } else {
+                alert("Barcode not detected in image. Try a clearer image.");
+            }
+        });
+    }
+
+    function fetchProductDetails(barcode) {
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.id = 'loading-indicator';
+        loadingIndicator.innerHTML = 'Loading product details...';
+        loadingIndicator.style.padding = '10px';
+        loadingIndicator.style.backgroundColor = '#f0f0f0';
+        loadingIndicator.style.borderRadius = '5px';
+        loadingIndicator.style.marginTop = '10px';
+
+        const existingIndicator = document.getElementById('loading-indicator');
+        if (existingIndicator) existingIndicator.remove();
+
+        // Changed where the loading indicator is displayed - now after the barScan div
+        document.querySelector('.barScan').appendChild(loadingIndicator);
+
+        fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`)
+            .then(response => response.json())
+            .then(data => {
+                loadingIndicator.remove();
+
+                if (data.status === 1 && data.product) {
+                    if (data.product.product_name) {
+                        document.getElementById('name').value = data.product.product_name;
+                    }
+                    if (data.product.generic_name) {
+                        document.getElementById('notes').value = data.product.generic_name;
+                    }
+
+                    const successMsg = document.createElement('div');
+                    successMsg.innerHTML = `<div style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                        Product found: ${data.product.product_name || 'Unknown product'}
+                    </div>`;
+                    // Changed where success message appears
+                    document.querySelector('.barScan').appendChild(successMsg);
+                    setTimeout(() => successMsg.remove(), 3000);
+                } else {
+                    const notFoundMsg = document.createElement('div');
+                    notFoundMsg.innerHTML = `<div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                        Product not found for barcode: ${barcode}
+                    </div>`;
+                    // Changed where error message appears
+                    document.querySelector('.barScan').appendChild(notFoundMsg);
+                    setTimeout(() => notFoundMsg.remove(), 3000);
+                }
+            })
+            .catch(error => {
+                loadingIndicator.remove();
+                const errorMsg = document.createElement('div');
+                errorMsg.innerHTML = `<div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                    Error fetching product details: ${error.message}
+                </div>`;
+                // Changed where error message appears
+                document.querySelector('.barScan').appendChild(errorMsg);
+                setTimeout(() => errorMsg.remove(), 3000);
+            });
+    }
+});
+</script>
+
+
+{% endblock %}

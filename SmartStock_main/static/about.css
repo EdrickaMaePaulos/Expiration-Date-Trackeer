@@ -1,0 +1,451 @@
+
+/* Main Content Container */
+.inside-rectangle-5 {
+    background-color: #E6DEE3;
+    width: 96%;
+    max-height: 70%;
+    margin-left: 2%;
+    margin-top: 2%;
+    border: 1px solid #d1c2cc;
+    border-radius: 25px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.content-box{
+    border-radius: 30px;
+}
+
+/* Tab Navigation */
+.tab-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 30px;
+    margin-top: 1%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tab-container {
+    background-color: #ffffff;
+    padding: 8px;
+    border-radius: 999px;
+    display: flex;
+    gap: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tab {
+    border: none;
+    background: none;
+    font-family: 'Istok Web', sans-serif;
+    font-size: 16px;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #6B5E64;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.tab:hover {
+    background-color: #f4eef2;
+}
+
+.tab-section {
+    display: none;
+    padding: 0 20px 40px;
+    animation: fadeIn 0.5s ease;
+    line-height: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#tab1:checked ~ .tab-section.tab1-content,
+#tab2:checked ~ .tab-section.tab2-content,
+#tab3:checked ~ .tab-section.tab3-content {
+    display: block;
+}
+
+#tab1:checked ~ .tab-wrapper .tab-container label[for="tab1"],
+#tab2:checked ~ .tab-wrapper .tab-container label[for="tab2"],
+#tab3:checked ~ .tab-wrapper .tab-container label[for="tab3"] {
+    background-color: #B9A3B5;
+    color: white;
+    font-weight: 700;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(151, 125, 144, 0.3);
+}
+
+.tab1-content,
+.tab2-content,
+.tab3-content {
+    max-width: 100%;
+    min-height: 500px;
+}
+
+/* About and How to Use sections layout */
+.about-this-website,
+.how-to-use {
+    display: flex;
+    flex-direction: row;
+    gap: 4%;
+    min-height: 600px;
+}
+
+.about-us-section,
+.how-to-use-section {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.image-container {
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.computer,
+.computer-2 {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.computer:hover,
+.computer-2:hover {
+    transform: translateY(-5px);
+}
+
+/* About Content Styling */
+.about-heading {
+    font-family: 'Istok Web', sans-serif;
+    font-size: 2.5rem;
+    color: #633858;
+    line-height: 1.1;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.about-description {
+    font-family: 'Istok Web', sans-serif;
+    font-size: 1.2rem;
+    color: #633858;
+    line-height: 1.5;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.feature-item:hover {
+    transform: translateX(5px);
+}
+
+.feature-icon {
+    color: #9B7D90;
+    font-size: 24px;
+    margin-right: 15px;
+    background-color: rgba(155, 125, 144, 0.1);
+    padding: 12px;
+    border-radius: 50%;
+}
+
+.feature-text h3 {
+    margin: 0 0 5px 0;
+    color: #633858;
+    font-size: 1.1rem;
+}
+
+.feature-text p {
+    margin: 0;
+    color: #6B5E64;
+    font-size: 0.95rem;
+}
+
+.tagline {
+    font-style: italic;
+    color: #633858;
+    font-weight: 500;
+    font-size: 1.1rem;
+    border-left: 3px solid #9B7D90;
+    padding-left: 15px;
+}
+
+/* Developers Section Styling */
+.developers-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+}
+
+.meet {
+    text-align: center;
+    margin: 0 0 30px 0;
+    font-family: 'Istok Web', sans-serif;
+    font-size: 2.2rem;
+    color: #633858;
+    font-weight: 700;
+}
+
+.developers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.team-member {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.member-image {
+    flex: 0 0 100px;
+}
+
+.member-image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #9B7D90;
+}
+
+.member-info {
+
+    flex: 1;
+    padding-left: 20px;
+}
+
+.member-info h2 {
+    font-family: 'Istok Web', sans-serif;
+    color: #633858;
+    margin: 0 0 3px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.member-role {
+    font-family: 'Istok Web', sans-serif;
+    color: #9B7D90;
+    margin: 0 0 10px 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.social-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.social-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background-color: #9B7D90;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.social-link:hover {
+    background-color: #633858;
+    transform: scale(1.1);
+}
+
+/* How to Use Section Styling */
+.how-heading {
+    font-family: 'Istok Web', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #633858;
+    line-height: 1.1;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.how-text {
+    font-family: 'Istok Web', sans-serif;
+    font-size: 1.2rem;
+    color: #9B7D90;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.how-description {
+    font-family: 'Istok Web', sans-serif;
+    font-size: 1.2rem;
+    color: #633858;
+    line-height: 1.5;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background-color: #9B7D90;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.step-content h3 {
+    margin: 0 0 5px 0;
+    color: #633858;
+    font-size: 1.1rem;
+}
+
+.step-content p {
+    margin: 0;
+    color: #6B5E64;
+    font-size: 0.95rem;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #633858;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 4px 12px rgba(99, 56, 88, 0.3);
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #9B7D90;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(99, 56, 88, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .about-this-website,
+    .how-to-use {
+        flex-direction: column;
+    }
+
+    .about-us-section,
+    .how-to-use-section,
+    .image-container {
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    .developers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .meet {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .tab-container {
+        gap: 10px;
+    }
+
+    .tab {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .about-heading,
+    .how-heading {
+        font-size: 2rem;
+    }
+
+    .team-member {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 10px;
+    }
+
+    .member-image {
+        margin-bottom: 15px;
+    }
+
+    .member-info {
+        padding-left: 0;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}

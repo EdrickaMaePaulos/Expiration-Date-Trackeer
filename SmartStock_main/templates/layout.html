@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartStock - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/home.css">
+    <link rel="stylesheet" href="/static/list.css">
+    <link rel="stylesheet" href="/static/about.css">
+    <link rel="stylesheet" href="/education.css">
+    <link rel="stylesheet" href="/static/education.css">
+
+</head>
+<body>
+    <div class="sidebar">
+    <img class="smartstock-logo-4" src="/static/Icons/smartstock.png">
+    <div class="horizontal-line-1"></div>
+        <a href="/home" style="text-decoration: none;">
+            <i class="fi fi-rs-home nav-icon" id="home-icon"></i>
+        </a>
+        <a href="/list" style="text-decoration: none;">
+            <i class="fi fi-rr-list nav-icon" id="list-icon"></i>
+        </a>
+        <a href="/education" style="text-decoration: none;">
+            <i class="fi fi-rs-book-alt nav-icon" id="settings-icon"></i>
+        </a>
+        <a href="/about" style="text-decoration: none;">
+            <i class="fi fi-rr-interrogation nav-icon"></i>
+        </a>
+        <a href="/signout" >
+            <i class="fi fi-rs-exit logout-icon"></i>
+        </a>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="greeting">
+                <i class="fas fa-user"></i>
+                <span>Hello, <strong>{{username}}</strong>!</span>
+            </div>
+            <div class="date text-end">
+                <small>AS OF</small> <strong id="datetime"></strong>
+            </div>
+        </div>
+
+    <!-- Scrollable Content Box -->
+    <div class="content-box">
+        <!-- Placeholder for dynamic content -->
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+    <script>
+
+        function updateDateTime() {
+        const now = new Date();
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const month = months[now.getMonth()];
+        const day = String(now.getDate()).padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById("datetime").textContent = `${month} ${day}, ${year} [${hours}:${minutes}:${seconds}]`;
+        }
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="add-new-container">
+        <div class="add-title">
+            <a href="/">
+                <button class="back-left">‹</button>
+            </a>
+            <h1>Add New Storage</h1>
+        </div>
+        <div>
+            <form action="/addCategory" method="post" enctype="multipart/form-data">
+                <div class="content">
+                    <div class="name-input">
+                        <input type="text" id="category" name="category" placeholder="Category:" required>
+                    </div>
+
+                    <button type="submit" class="add-button">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

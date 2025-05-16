@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="add-new-container">
+        <div class="add-title">
+            <a href="/">
+                <button class="back-left">‹</button>
+            </a>
+            <h1>Add New Storage</h1>
+        </div>
+        <div>
+            <form action="/addStorage" method="post" enctype="multipart/form-data">
+                <div class="content">
+                    <div class="icon-section">
+                        <div class="icon-label">Choose Icon</div>
+                        <label for="icon-upload" class="icon-container">
+                            <div class="plus-icon" id="plus-icon">+</div>
+                            <img id="preview-image" src="#" alt="Preview">
+                        </label>
+                        <input type="file" id="icon-upload" name="image" accept="image/*" required onchange="previewImage(this)">
+                    </div>
+
+                    <div class="name-input">
+                        <input type="text" id="storage" name="storage" placeholder="Storage:" required>
+                    </div>
+
+                    <button type="submit" class="add-button">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<script>
+        function previewImage(input) {
+            const plusIcon = document.getElementById('plus-icon');
+            const previewImage = document.getElementById('preview-image');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    previewImage.style.display = 'block';
+                    previewImage.src = e.target.result;
+                    plusIcon.style.display = 'none';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+{% endblock %}

@@ -1,0 +1,570 @@
+body {
+            height: 100vh;
+            margin: 0;
+        }
+
+        .get-started-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .gradient-background-1 {
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom, #9B7D90, #3E6895);
+        }
+        .box {
+            margin-top: 8%;
+            width: 600px;
+            height: 475px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+        }
+        .smartstock-logo-1 {
+            object-fit: contain;
+            width: 100px;
+            height: 100px;
+            margin-top: 8%;
+        }
+
+        .smartstock-text-1 {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-family: "Istok Web", sans-serif;
+            font-size: 23px;
+            font-weight: bold;
+            color: #826D7A;
+        }
+
+        .description-1 {
+            margin-top: 2%;
+            margin-bottom: 0;
+            font-family: "Istok Web", sans-serif;
+            font-size: 50px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+            line-height: 50px;
+        }
+
+        .description-2 {
+            margin-top: 1%;
+            font-family: "Istok Web", sans-serif;
+            font-size: 12px;
+            font-style: italic;
+            color: #826D7A;
+        }
+
+        .get-started-button {
+            margin-top: 3%;
+            height: 40px;
+            width: 120px;
+            border: 0 solid;
+            border-radius: 30px;
+            background-color: #826D7A;
+            cursor: pointer;
+            display: inline-block;
+            transition-duration: 0.5s;
+            font-family: "Istok Web", sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #D3CAD0;
+            text-align: center;
+        }
+
+        .get-started-button:hover {
+            background-color: #D3CAD0;
+            color: #715C69;
+        }
+
+        #signup-page-container {
+            display: none;
+        }
+
+        .gradient-background-2 {
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 45%;
+            height: 100vh;
+            background: linear-gradient(to bottom, #9B7D90, #3E6895);
+        }
+
+        .signup-page {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 25%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .signup-left {
+            margin-top: 5%;
+            margin-left: 10%;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hello {
+            margin-bottom: 0;
+            font-family: "Istok Web", sans-serif;
+            font-size: 60px;
+            color: white;
+        }
+
+        .text-1 {
+            margin-top: 5px;
+            font-family: "Istok Web", sans-serif;
+            font-size: 17px;
+            color: white;
+            font-style: italic;
+        }
+
+        .text-2 {
+            margin-top: 0;
+            font-family: "Istok Web", sans-serif;
+            font-size: 9px;
+            color: white;
+        }
+
+        .signin-button-1 {
+            margin-top: -1%;
+            height: 40px;
+            width: 120px;
+            border: 0;
+            border-radius: 30px;
+            background-color: #D3CAD0;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: "Istok Web", sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #715C69;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .signin-button-1:hover {
+            background-color: #715C69;
+            color: #D3CAD0;
+        }
+
+        .signup-right {
+            width: 30%;
+            margin-top: 5%;
+            margin-right: 10%;
+        }
+
+        .smartstock-logo-2 {
+            object-fit: contain;
+            width: 70px;
+            height: 70px;
+            margin-top: 2%;
+        }
+
+        .smartstock-text-2 {
+            margin-top: 0;
+            font-family: "Istok Web", sans-serif;
+            font-size: 20px;
+            color: #826D7A;
+        }
+
+        .create-account {
+            font-family: "Istok Web", sans-serif;
+            font-size: 30px;
+            color: #826D7A;
+        }
+
+        .input-container-1 {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .inputs-1 {
+            width: 100%;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 50px;
+        }
+
+        .inputs-1 input {
+            border-radius: 25px;
+            border: none;
+            background-color: rgba(186, 164, 189, 0.3);
+            font-size: 16px;
+            box-sizing: border-box;
+            padding-left: 15px;
+            color: white;
+        }
+
+        .inputs-1 input::placeholder {
+            padding-left: 0;
+            color: white;
+        }
+
+        #fullname-input {
+            border-radius: 25px;
+            width: 380px;
+            display: block;
+            cursor: text;
+            font-family: "Istok Web", sans-serif;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        #email-input {
+            border-radius: 25px;
+            width: 380px;
+            display: block;
+            cursor: text;
+            font-family: "Istok Web", sans-serif;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        #username-input-1 {
+            border-radius: 25px;
+            width: 380px;
+            display: block;
+            cursor: text;
+            font-family: "Istok Web", sans-serif;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        #password-input-1 {
+            border-radius: 25px;
+            width: 380px;
+            display: block;
+            cursor: text;
+            font-family: "Istok Web", sans-serif;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        #confirm_password-input-1 {
+            border-radius: 25px;
+            width: 380px;
+            display: block;
+            cursor: text;
+            font-family: "Istok Web", sans-serif;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+            margin: 0 10px 0;
+        }
+
+        .divider-2{
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .divider-2::before,
+        .divider-2::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+            margin: 0 10px 0;
+        }
+
+        .signup-button-1 {
+            margin-top: 5px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40px;
+            width: 120px;
+            border: 0;
+            border-radius: 30px;
+            cursor: pointer;
+            background-color: #D3CAD0;
+            text-decoration: none;
+            font-family: "Istok Web", sans-serif;
+            color: #715C69;
+            font-size: 12px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .signup-button-1 a {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            text-align: center;
+        }
+
+        .signup-button-1:hover {
+            background-color: #715C69;
+            color: #D3CAD0;
+        }
+
+        .logos-1 {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 2%;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-icon img {
+            width: 24px;
+            height: auto;
+        }
+
+        #signin-page-container {
+            display: none;
+        }
+
+        .gradient-background-3 {
+            position: absolute;
+            z-index: -1;
+            background: linear-gradient(to bottom, #9B7D90, #3E6895);
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+        }
+
+        .signin-page {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 22%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .signin-left {
+            width: 30%;
+            margin-top: 8%;
+            margin-left: 10%;
+        }
+
+        .smartstock-logo-3 {
+            object-fit: contain;
+            width: 70px;
+            height: 70px;
+            margin-top: 2%;
+        }
+
+        .smartstock-text-3 {
+            margin-top: 0;
+            font-family: "Istok Web", sans-serif;
+            font-size: 20px;
+            color: #826D7A;
+        }
+
+        .signin {
+            font-family: "Istok Web", sans-serif;
+            font-size: 30px;
+            color: #826D7A;
+        }
+
+        .input-container-2 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+
+        .inputs-2 {
+            width: 100%;
+        }
+
+        .inputs-2 input {
+            padding: 15px;
+            border-radius: 25px;
+            border: none;
+            background-color: rgba(186, 164, 189, 0.3);
+            color: #333;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .inputs-2 input::placeholder {
+            color: #777;
+        }
+
+        #username-input-2 {
+            padding: 10px;
+            border: 1px solid #9B7D90;
+            border-radius: 25px;
+            width: 380px;
+            display: block;
+            cursor: text;
+            font-family: "Istok Web", sans-serif;
+            font-size: 16px;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        #password-input-2 {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            width: 380px;
+            display: block;
+            cursor: text;
+            font-family: "Istok Web", sans-serif;
+            font-size: 16px;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .forgot-password {
+            text-align: end;
+            margin-right: 40px;
+            width: 100%;
+            margin-top: 1%;
+            font-family: "Istok Web", sans-serif;
+            font-size: 10px;
+            color: #715C69;
+        }
+
+        .signin-button-2 {
+            margin-top: 0;
+            height: 40px;
+            width: 120px;
+            border: 0 solid;
+            border-radius: 30px;
+            background-color: #D3CAD0;
+            font-family: "Istok Web", sans-serif;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            color: #715C69;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .signin-button-2:hover {
+            background-color: #715C69;
+            color: #D3CAD0;
+        }
+
+        .signin-right {
+            margin-top: 5%;
+            margin-right: 5%;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .welcome-back {
+            margin-bottom: 0;
+            font-family: "Istok Web", sans-serif;
+            font-size: 60px;
+            color: white;
+        }
+
+        .text-3 {
+            margin-top: 5px;
+            font-family: "Istok Web", sans-serif;
+            font-size: 17px;
+            color: white;
+            font-style: italic;
+        }
+
+        .text-4 {
+            margin-top: 0;
+            font-family: "Istok Web", sans-serif;
+            font-size: 9px;
+            color: white;
+        }
+
+        .signup-button-2 {
+            margin-top: -1%;
+            height: 40px;
+            width: 120px;
+            border: 0;
+            border-radius: 30px;
+            background-color: #D3CAD0;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: "Istok Web", sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #715C69;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .signup-button-2:hover {
+            background-color: #715C69;
+            color: #D3CAD0;
+        }
+
+        #home-page-container {
+            display: none;
+        }
+
+        h1, p {
+            font-weight: bold; /* Bold text for headings and paragraphs using Istok Web */
+        }

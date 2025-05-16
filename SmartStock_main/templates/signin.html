@@ -1,0 +1,52 @@
+{% extends 'index_layout.html' %}
+
+
+
+{% block content %}
+
+<form action="/signin" method="POST">
+        <div class="gradient-background-3" id="gradient-background-3"></div>
+        <div class="signin-page">
+            <div class="signin-left">
+                <img class="smartstock-logo-3" src="/static/Icons/smartstock.png">
+                <p class="smartstock-text-3">SmartStock</p>
+                <h1 class="signin">Sign-In</h1>
+                <div class="input-container-2">
+                    <div class="inputs-2">
+                        <label for="email"></label>
+                        <input type="text" id="email" name="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="inputs-2">
+                        <label for="password"></label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+                </div>
+
+                <div class="divider-2">
+                    <span>Or Sign-in with</span>
+                </div>
+                <button type="submit" class=" btn signup-button-1">SIGN-IN</button>
+                <div class="logos-1">
+                    <a href="gmail.com" class="social-icon google">
+                        <img src="/static/Icons/gmail.png" alt="Gmail">
+                    </a>
+                    <a href="facebook.com" class="social-icon facebook">
+                        <img src="/static/Icons/facebook.png" alt="Facebook">
+                    </a>
+                </div>
+            </div>
+
+            <div class="signin-right">
+                <h1 class="welcome-back">Welcome back!</h1>
+                <p class="text-3">Enter your personal details and<br>start journey with us.</p>
+                <p class="text-4">Don't have an account?</p>
+                <a href="/signup" class="signup-button-2">SIGN-UP</a>
+            </div>
+        </div>
+
+</form>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'index_layout.html' %}
+
+{% block content %}
+<form action="/signup" method="POST">
+    <div class="signup-page-container" id="signup-page-container"></div>
+    <div class="gradient-background-2" id="gradient-background-2"></div>
+    <div class="signup-page">
+      <div class="signup-left">
+        <h1 class="hello">Hello, Friend!</h1>
+        <p class="text-1">Enter your personal details and<br>start journey with us.</p>
+        <p class="text-2">Already have an account?</p>
+        <a href="/signin" class="signin-button-1">SIGN-IN</a>
+      </div>
+
+      <div class="signup-right">
+        <img class="smartstock-logo-2" src="/static/Icons/smartstock.png">
+        <p class="smartstock-text-2">SmartStock</p>
+        <h1 class="create-account">Create Account</h1>
+        <div class="input-container-1">
+          <div class="inputs-1">
+            <label for="fullname"></label>
+            <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Fullname" required>
+          </div>
+          <div class="inputs-1">
+            <label for="username"></label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+          </div>
+          <div class="inputs-1">
+            <label for="email"></label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+          </div>
+          <div class="inputs-1">
+            <label for="password"></label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+          </div>
+          <div class="inputs-1">
+            <label for="confirm_password"></label>
+            <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm Password" required>
+          </div>
+        </div>
+
+        <div class="divider">
+          <span>Or Sign-up with</span>
+        </div>
+        <button type="submit" class=" btn signup-button-1"><a>SIGN-UP</a></button>
+        <div class="logos-1">
+          <a href="gmail.com" class="social-icon google">
+            <img src="/static/Icons/gmail.png" alt="Gmail">
+          </a>
+
+          <a href="facebook.com" class="social-icon facebook">
+            <img src="/static/Icons/facebook.png" alt="Facebook">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+{% endblock %}

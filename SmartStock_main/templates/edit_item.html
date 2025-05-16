@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Edit Item</h1>
+    <form action="/edit/{{ item.id }}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Item Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ item.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="storageID" class="form-label">Storage</label>
+            <select class="form-control" id="storageID" name="storageID" required>
+                <option value="">Select Storage</option>
+                {% for storage in storages %}
+                <option value="{{ storage.storageID }}" {% if storage.storageID == item.storageID %}selected{% endif %}>
+                    {{ storage.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="categoryID" class="form-label">Category</label>
+            <select class="form-control" id="categoryID" name="categoryID" required>
+                <option value="">Select Category</option>
+                {% for category in categories %}
+                <option value="{{ category.categoryID }}" {% if category.categoryID == item.categoryID %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="manufactured_date" class="form-label">Manufacturing Date</label>
+            <input type="date" class="form-control" id="manufactured_date" name="manufactured_date" value="{{ item.manufactured_date.strftime('%Y-%m-%d') if item.manufactured_date else '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="expiration_date" class="form-label">Expiration Date</label>
+            <input type="date" class="form-control" id="expiration_date" name="expiration_date" value="{{ item.expiration_date.strftime('%Y-%m-%d') if item.expiration_date else '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" name="notes" rows="3">{{ item.notes }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Item</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

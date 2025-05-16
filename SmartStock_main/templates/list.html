@@ -1,0 +1,168 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="inside-rectangle-1">
+    <div class="storage-box-2">
+        <!-- Existing Storage Cards -->
+        {% for storage in storages %}
+        <div class="add-storage-2">
+            <a href="/list?storageID={{ storage.storageID }}" class="text-decoration-none">
+                <div class="card h-100 text-center">
+                    <div>
+                        {% if storage.name|lower == 'refrigerator' %}
+                        <img src="/static/Icons/refrigerator.png" alt="Refrigerator" class="storagecards">
+                        {% elif storage.name|lower == 'freezer' %}
+                        <img src="/static/Icons/freezer.png" alt="Freezer" class="storagecards">
+                        {% elif storage.name|lower == 'pantry' %}
+                        <img src="/static/Icons/pantry.png" alt="Pantry" class="storagecards">
+                        {% elif storage.name|lower == 'medical cabinet' %}
+                        <img src="/static/Icons/medical-cabinet.png" alt="Medical Cabinet" class="storagecards">
+                        {% elif storage.name|lower == 'personal care' %}
+                        <img src="/static/Icons/personal-care.png" alt="Personal Care" class="storagecards">
+                        {% elif storage.name|lower == 'mini fridge' %}
+                        <img src="/static/Icons/mini-bar.png" alt="Mini Fridge" class="storagecards">
+                        {% elif storage.name|lower == 'cleaning supplies' %}
+                        <img src="/static/Icons/cleaning-products.png" alt="Cleaning Supplies" class="storagecards">
+                        {% elif storage.name|lower == 'pet supplies' %}
+                        <img src="/static/Icons/pet-food.png" alt="Pet Supplies" class="storagecards">
+                        {% elif storage.name|lower == 'garage storage' %}
+                        <img src="/static/Icons/garage.png" alt="Garage Storage" class="storagecards">
+                        {% elif storage.name|lower == 'laundry room' %}
+                        <img src="/static/Icons/laundry-machine.png" alt="Laundry Room" class="storagecards">
+                        {% elif storage.name|lower == 'perfume collections' %}
+                        <img src="/static/Icons/perfume.png" alt="Perfume Collections" class="storagecards">
+                        {% elif storage.name|lower == 'dental care' %}
+                        <img src="/static/Icons/teeth.png" alt="Dental Care" class="storagecards">
+                        {% elif storage.name|lower == 'baby products' %}
+                        <img src="/static/Icons/baby-products.png" alt="Baby Products" class="storagecards">
+                        {% elif storage.name|lower == 'gym supplements' %}
+                        <img src="/static/Icons/protein.png" alt="Gym Supplements" class="storagecards">
+                        {% else %}
+                        <img src="/static/Icons/Storage_add.png" alt="Storage" class="storagecards">
+                        {% endif %}
+                        <h5 class="card-title">{{ storage.name|upper }}</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="inside-rectangle-2">
+
+    <!-- ✅ SEARCH BAR -->
+    <form method="get" action="{{ url_for('item_list') }}" class="mb-3 search-bar" style="display: flex; gap: 10px; align-items: center;">
+        {% if request.args.get('storageID') %}
+            <input type="hidden" name="storageID" value="{{ request.args.get('storageID') }}">
+        {% endif %}
+        <input type="text" name="search" class="form-control" placeholder="Search item by name"
+               value="{{ request.args.get('search', '') }}" style="max-width: 300px;">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if selected_storage %}
+    <h3 class="all-items">Items in {{ selected_storage.name|upper }}</h3>
+    {% else %}
+    <h3 class="all-items">All Items</h3>
+    {% endif %}
+
+    <div class="inside-rectangle-3">
+    <table class="items-container">
+        <thead>
+            <tr class="items-description">
+                <th>Name</th>
+                <th>Storage</th>
+                <th>Category</th>
+                <th>Manufactured Date</th>
+                <th>Expiration Date</th>
+                <th>Days Remaining</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if selected_storage and items_in_storage %}
+                {% for item in items_in_storage %}
+                <tr class="items">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.storage }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.manufactured_date.strftime('%Y-%m-%d') if item.manufactured_date else 'N/A' }}</td>
+                    <td>{{ item.expiration_date.strftime('%Y-%m-%d') if item.expiration_date else 'N/A' }}</td>
+                    <td>
+                        {% if item.days_remaining is not none %}
+                            {% if item.days_remaining < 0 %}
+                            <span class="text-danger">Expired ({{ -item.days_remaining }} days ago)</span>
+                            {% elif item.days_remaining == 0 %}
+                            <span class="text-warning">Expires Today</span>
+                            {% else %}
+                            {{ item.days_remaining }} days
+                            {% endif %}
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+                    <td>{{ item.notes }}</td>
+                    <td>
+                        <div style="display: flex; gap: 5px;">
+                            <a href="/edit/{{ item.id }}" class="btn btn-sm btn-info">Edit</a>
+                            <form class="d-inline" action="/delete/{{ item.id }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% elif selected_storage and not items_in_storage %}
+            <tr>
+                <td colspan="8" class="text-center">
+                    <div class="alert alert-info">There's no items in this storage.</div>
+                </td>
+            </tr>
+            {% else %}
+                {% if items %}
+                    {% for item in items %}
+                    <tr class="items">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.storage }}</td>
+                        <td>{{ item.category }}</td>
+                        <td>{{ item.manufactured_date.strftime('%Y-%m-%d') if item.manufactured_date else 'N/A' }}</td>
+                        <td>{{ item.expiration_date.strftime('%Y-%m-%d') if item.expiration_date else 'N/A' }}</td>
+                        <td>
+                            {% if item.days_remaining is not none %}
+                                {% if item.days_remaining < 0 %}
+                                <span class="text-danger">Expired ({{ -item.days_remaining }} days ago)</span>
+                                {% elif item.days_remaining == 0 %}
+                                <span class="text-warning">Expires Today</span>
+                                {% else %}
+                                {{ item.days_remaining }} days
+                                {% endif %}
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </td>
+                        <td>{{ item.notes }}</td>
+                        <td>
+                            <div style="display: flex; gap: 5px;">
+                                <a href="/edit/{{ item.id }}" class="btn btn-sm btn-info">Edit</a>
+                                <form class="d-inline" action="/delete/{{ item.id }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            <div class="alert alert-info">No items found.</div>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

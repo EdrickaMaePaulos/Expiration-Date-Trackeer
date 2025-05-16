@@ -1,0 +1,238 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<!-- Notifications Section -->
+<form action="/home" method="POST">
+    <div class="smartstock-page">
+        <div class="row">
+            <div class="dashboard">
+                <!-- Left side: Welcome and Storage Cards -->
+                <div class="dashboard-left">
+                    <div class="dashboard-left-top">
+                        <div class="tagline-container">
+                            <div class="tagline">
+                                <p class="aboutus-text">About Us</p>
+                                <p class="tagline-1">Welcome to SmartStock!</p>
+                                <p class="tagline-2">where expiration dates meet their match! Tired of discovering spoiled food, expired medication,<br> or outdated supplies?</p>
+                                <a href="/about" style="text-decoration: none">
+                                    <p class="read-more">Read more...</p>
+                                </a>
+                            </div>
+                            <div class="logo-container">
+                                <img class="smartstock-logo-6" src="/static/Icons/smartstock.png">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Storage Categories Section -->
+                    <div class="storage-list-1">
+                        <div class="storage-box-1">
+                            <!-- Add New Card -->
+                            <div class="add-storage-1">
+                                <a onclick="showAddOptions()">
+                                    <img src="/static/Icons/Storage_add.png" class="storagecards">
+                                </a>
+                            </div>
+
+                            <!-- Existing Storage Cards -->
+                            {% for storage in storages %}
+                            <div class="add-storage-2">
+                                <a href="/list?storageID={{ storage.storageID }}" class="text-decoration-none">
+                                    <div class="card">
+                                        <div>
+                                            {% if storage.name|lower == 'refrigerator' %}
+                                                <img src="/static/Icons/refrigerator.png" alt="Refrigerator" class="storagecards">
+                                            {% elif storage.name|lower == 'freezer' %}
+                                                <img src="/static/Icons/freezer.png" alt="Freezer" class="storagecards">
+                                            {% elif storage.name|lower == 'pantry' %}
+                                                <img src="/static/Icons/pantry.png" alt="Pantry" class="storagecards">
+                                            {% elif storage.name|lower == 'medical cabinet' %}
+                                                <img src="/static/Icons/medical-cabinet.png" alt="Medical Cabinet" class="storagecards">
+                                            {% elif storage.name|lower == 'personal care' %}
+                                                <img src="/static/Icons/personal-care.png" alt="Personal Care" class="storagecards">
+                                            {% elif storage.name|lower == 'mini fridge' %}
+                                                <img src="/static/Icons/mini-bar.png" alt="Mini Fridge" class="storagecards">
+                                            {% elif storage.name|lower == 'cleaning supplies' %}
+                                                <img src="/static/Icons/cleaning-products.png" alt="Cleaning Supplies" class="storagecards">
+                                            {% elif storage.name|lower == 'pet supplies' %}
+                                                <img src="/static/Icons/pet-food.png" alt="Pet Supplies" class="storagecards">
+                                            {% elif storage.name|lower == 'garage storage' %}
+                                                <img src="/static/Icons/garage.png" alt="Garage Storage" class="storagecards">
+                                            {% elif storage.name|lower == 'laundry room' %}
+                                                <img src="/static/Icons/laundry-machine.png" alt="Laundry Room" class="storagecards">
+                                            {% elif storage.name|lower == 'perfume collections' %}
+                                                <img src="/static/Icons/perfume.png" alt="Perfume Collections" class="storagecards">
+                                            {% elif storage.name|lower == 'dental care' %}
+                                                <img src="/static/Icons/teeth.png" alt="Dental Care" class="storagecards">
+                                            {% elif storage.name|lower == 'baby products' %}
+                                                <img src="/static/Icons/baby-products.png" alt="Baby Products" class="storagecards">
+                                            {% elif storage.name|lower == 'gym supplements' %}
+                                                <img src="/static/Icons/protein.png" alt="Gym Supplements" class="storagecards">
+
+                                            {% else %}
+                                                <img src="/static/Icons/edricka.png" alt="Storage" class="storagecards">
+                                            {% endif %}
+                                            <h5 class="card-title">{{ storage.name|upper }}</h5>
+                                              
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="add-things">
+                                    <span class="ellipsis" onclick="toggleMenu(this)">⋮</span>
+                                    <div class="popup-menu" id="popup-menu">
+                                        <div class="storage-actions">
+                                            <a href="/editStorage/{{ storage.storageID }}" class="buttonEdit">Edit</a>
+                                            <a href="/deleteStorage/{{ storage.storageID }}" class="buttonDelete" onclick="return confirm('Are you sure you want to delete this storage?');">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Items in Selected Storage -->
+                    {% if items_in_storage %}
+                    <h3 class="mt-4">Items in Storage</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Manufactured Date</th>
+                                <th>Expiration Date</th>
+                                <th>Days Remaining</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items_in_storage %}
+                            <tr class="{% if item.days_remaining is not none %}
+                                        {% if item.days_remaining < 0 %} table-danger
+                                        {% elif item.days_remaining <= 3 %} table-warning
+                                        {% elif item.days_remaining <= 7 %} table-info
+                                        {% endif %}
+                                        {% endif %}">
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.category }}</td>
+                                <td>{{ item.manufactured_date.strftime('%Y-%m-%d') if item.manufactured_date else 'N/A' }}</td>
+                                <td>{{ item.expiration_date.strftime('%Y-%m-%d') if item.expiration_date else 'N/A' }}</td>
+                                <td>
+                                    {% if item.days_remaining is not none %}
+                                        {% if item.days_remaining < 0 %}
+                                            <span class="text-danger">Expired ({{ item.days_remaining }} days)</span>
+                                        {% elif item.days_remaining == 0 %}
+                                            <span class="text-warning">Expires today</span>
+                                        {% else %}
+                                            {{ item.days_remaining }} days
+                                        {% endif %}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>{{ item.notes }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+
+                <div class="notification-container">
+                    <div class="notification-text">Notification</div>
+                    <div class="notification">
+                        {% if notifications %}
+                            {% for notification in notifications %}
+                                <div class="notif-item
+                                    {% if notification.days_remaining <= 0 %}notif-1
+                                    {% elif notification.days_remaining <= 1 %}notif-2
+                                    {% elif notification.days_remaining <= 3 %}notif-3
+                                    {% else %}notif-4
+                                    {% endif %}">
+
+                                    <div class="category-name">{{ notification.name }}</div>
+
+                                    <div class="expiry-notif">
+                                        <div class="expiry-indicator">
+                                            {% if notification.days_remaining <= 0 %}
+                                                Expired
+                                            {% elif notification.days_remaining == 1 %}
+                                                Today
+                                            {% elif notification.days_remaining <= 3 %}
+                                                {{ notification.days_remaining }} day/s
+                                            {% else %}
+                                                {{ notification.days_remaining }} day/s
+                                            {% endif %}
+                                        </div>
+                                        <div class="expiry-date">{{ notification.expiration_date }}</div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="no-notifications">No items expiring in the next 7 days.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Popup Modal -->
+<div id="addOptionsModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddOptions()">&times;</span>
+        <h4 class="add-new">Add New</h4>
+        <div class="modal-buttons">
+            <a href="/addItem" class="buttonAdd">Add New Item</a>
+            <a href="/addStorage" class="buttonAdd">Add New Storage</a>
+            <a href="/addCategory" class="buttonAdd">Add New Category</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleMenu(triggerElement) {
+        const menu = triggerElement.nextElementSibling;
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+
+    document.addEventListener("click", function(event) {
+        const isInsidePopup = event.target.closest('.popup-menu');
+        const isEllipsis = event.target.classList.contains('ellipsis');
+
+        if (!isInsidePopup && !isEllipsis) {
+            document.querySelectorAll('.popup-menu').forEach(menu => {
+                menu.style.display = 'none';
+            });
+        }
+    });
+    // Get the modal
+    const modal = document.getElementById('addOptionsModal');
+
+    // Function to show the modal
+    function showAddOptions() {
+        modal.style.display = "block";
+    }
+
+    // Function to close the modal
+    function closeAddOptions() {
+        modal.style.display = "none";
+    }
+
+    // Close the modal when clicking outside of it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    document.querySelectorAll(".back-left").forEach(button => {
+        button.addEventListener("click", function () {
+            showSection("list-page-container");
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,246 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="add-new-container-1">
+    <input type="radio" name="tab" id="tab1" checked hidden>
+    <input type="radio" name="tab" id="tab2" hidden>
+    <input type="radio" name="tab" id="tab3" hidden>
+
+    <div class="tab-wrapper">
+        <div class="tab-container">
+            <label for="tab1" class="tab">About this website</label>
+            <label for="tab2" class="tab">Developers</label>
+            <label for="tab3" class="tab">How to use</label>
+        </div>
+    </div>
+
+    <!-- About Tab Content -->
+    <div class="tab-section tab1-content" id="about-tab">
+        <div class="about-this-website">
+            <div class="about-us-section">
+                <h2 class="about-heading">Tired of the endless cycle<br>of buy, forget, and toss?<br>SmartStock breaks the<br>pattern.</h2>
+                <p class="about-description">SmartStock is an intuitive platform that transforms how you track what matters, turning chaotic expiration management into effortless organization.</p>
+
+                <p class="about-description">With SmartStock, you're not just tracking dates - you're unlocking a more efficient, less wasteful lifestyle.</p>
+
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="fas fa-bell feature-icon"></i>
+                        <div class="feature-text">
+                            <h3>Smart Alerts</h3>
+                            <p>Get timely notifications before your items expire</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fas fa-chart-pie feature-icon"></i>
+                        <div class="feature-text">
+                            <h3>Usage Analytics</h3>
+                            <p>Track consumption patterns and reduce waste</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fas fa-mobile-alt feature-icon"></i>
+                        <div class="feature-text">
+                            <h3>Accessible Anywhere</h3>
+                            <p>Manage your inventory on any device</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tagline">Smart Tracking, Smarter Living: your path to perfectly timed consumption starts here.</div>
+            </div>
+            <div class="image-container">
+                <img class="computer" src="/static/Icons/computer.png" alt="SmartStock Dashboard">
+            </div>
+        </div>
+    </div>
+
+    <!-- Developers Tab Content -->
+    <div class="tab-section tab2-content" id="dev-tab">
+        <div class="developers-section">
+            <h1 class="meet">Meet our Team</h1>
+            <div class="developers-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/static/Icons/edricka.png" alt="Edricka Mae H. Paulos">
+                    </div>
+                    <div class="member-info">
+                        <h2>Edricka Mae H. Paulos</h2>
+                        <p class="member-role">Project Manager</p>
+                        <div class="social-icons">
+                            <a class="social-link" href="mailto:africakiarra.bu@gmail.com" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a class="social-link" href="https://github.com/kiarraafrica" target="_blank" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a class="social-link" href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/static/Icons/nigel.png" alt="Nigel Hans G. Nunez">
+                    </div>
+                    <div class="member-info">
+                        <h2>Nigel Hans G. Nunez</h2>
+                        <p class="member-role">Back-End Developer</p>
+                        <div class="social-icons">
+                            <a class="social-link" href="mailto:nigel.nunez@example.com" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a class="social-link" href="https://github.com/" target="_blank" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a class="social-link" href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/static/Icons/kiarra.jpg" alt="Kiarra Francesca Gabrielle S. Africa">
+                    </div>
+                    <div class="member-info">
+                        <h2>Kiarra Francesca Gabrielle S. Africa</h2>
+                        <p class="member-role">Front-End Head</p>
+                        <div class="social-icons">
+                            <a class="social-link" href="mailto:africakiarra.bu@gmail.com" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a class="social-link" href="https://github.com/kiarraafrica" target="_blank" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a class="social-link" href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/static/Icons/ayelet.png" alt="Ayelet D'arcy C. De Castro">
+                    </div>
+                    <div class="member-info">
+                        <h2>Ayelet D'arcy C. De Castro</h2>
+                        <p class="member-role">Developer</p>
+                        <div class="social-icons">
+                            <a class="social-link" href="mailto:ayelet.decastro@example.com" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a class="social-link" href="https://github.com/" target="_blank" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a class="social-link" href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/static/Icons/kriztel.jpg" alt="Kriztel C. Garcia">
+                    </div>
+                    <div class="member-info">
+                        <h2>Kriztel C. Garcia</h2>
+                        <p class="member-role">Developer</p>
+                        <div class="social-icons">
+                            <a class="social-link" href="mailto:kriztel.garcia@example.com" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a class="social-link" href="https://github.com/" target="_blank" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a class="social-link" href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="/static/Icons/genrique.png" alt="Genrique Sean Arkin D. Balmes">
+                    </div>
+                    <div class="member-info">
+                        <h2>Genrique Sean Arkin D. Balmes</h2>
+                        <p class="member-role">Developer</p>
+                        <div class="social-icons">
+                            <a class="social-link" href="mailto:genrique.balmes@example.com" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a class="social-link" href="https://github.com/" target="_blank" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a class="social-link" href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Use Tab Content -->
+    <div class="tab-section tab3-content" id="how-to-tab">
+        <div class="how-to-use">
+            <div class="how-to-use-section">
+                <h2 class="how-heading">Smart Tracking<br>Smarter Living</h2>
+                <p class="how-text">with SmartStock</p>
+
+                <p class="how-description">SmartStock is an innovative website that addresses critical environmental challenges by minimizing waste, optimizing resource consumption, and promoting sustainable living practices.</p>
+
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Create your account</h3>
+                            <p>Sign up with your email and customize your profile</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Add your items</h3>
+                            <p>Catalog your products with expiration dates and categories</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Get notified</h3>
+                            <p>Receive timely alerts before products expire</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Track and optimize</h3>
+                            <p>Monitor usage patterns and reduce waste</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="/" class="cta-button">Get Started Today</a>
+            </div>
+            <div class="image-container">
+                <img class="computer-2" src="/static/Icons/computer.png" alt="SmartStock Interface">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
